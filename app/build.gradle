@@ -61,6 +61,10 @@ dependencies {
     //Mask
     implementation 'ru.egslava:MaskedEditText:1.0.5'
 
+    //Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+
     //Phoenix Client
     implementation 'com.github.dsrees:JavaPhoenixClient:0.4.0'
 

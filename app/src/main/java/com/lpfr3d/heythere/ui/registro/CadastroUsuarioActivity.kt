@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lpfr3d.heythere.R
 import com.lpfr3d.heythere.Status
-import com.lpfr3d.heythere.database.registro.RegistroModel
+import com.lpfr3d.heythere.database.models.RegistroModel
 import com.lpfr3d.heythere.database.retrofit.RetrofitClient.instance
 import com.lpfr3d.heythere.databinding.ActivityCadastroUsuarioBinding
 
@@ -40,8 +40,8 @@ class CadastroUsuarioActivity : AppCompatActivity() {
         binding.btFinalizarCadastro.setOnClickListener {
 
             val x = RegistroModel(
-                "Lassdfsddo",
-                "luisdfdsz@gmail.com",
+                "beto",
+                "beto@gmail.com",
                 "1234567",
                 "2019-12-12",
                 "M",
@@ -56,6 +56,20 @@ class CadastroUsuarioActivity : AppCompatActivity() {
 
                     }
 
+                }
+            })
+        }
+
+        binding.btListarSalas.setOnClickListener {
+            viewModel.listarSalas().observe(this,{
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCESSO -> resource.data!!.forEach {
+                            println(it.nomeSala + "  " + it.quantidadeDePessoas)
+                        }
+                        Status.ERRO -> println(resource.message)
+                        Status.CARREGANDO -> println("loading")
+                    }
                 }
             })
         }

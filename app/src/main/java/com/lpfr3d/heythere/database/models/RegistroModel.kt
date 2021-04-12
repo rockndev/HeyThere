@@ -1,4 +1,4 @@
-package com.lpfr3d.heythere.database.registro
+package com.lpfr3d.heythere.database.models
 
 import retrofit2.http.Field
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_top_salas">
+
+    <fragment
+        android:id="@+id/navigation_top_salas"
+        android:name="com.lpfr3d.heythere.ui.home_top_salas.TopSalasFragment"
+        android:label="fragment_top_salas"
+        tools:layout="@layout/fragment_top_salas" >
+        <action
+            android:id="@+id/action_topSalasFragment_to_salaFragment"
+            app:destination="@id/navigation_sala" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_sala"
+        android:name="com.lpfr3d.heythere.ui.salas.SalaFragment"
+        android:label="fragment_sala"
+        tools:layout="@layout/fragment_sala" />
+</navigation>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/ivNacionalidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_flag"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNomeUsuario"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNomeUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aracnofobia"
+        app:layout_constraintEnd_toStartOf="@+id/tvCorpoMensagem"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ivNacionalidade"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCorpoMensagem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="corpo do mensagem"
+        app:layout_constraintStart_toEndOf="@+id/tvNomeUsuario"
+        app:layout_constraintTop_toTopOf="@+id/tvNomeUsuario" />
+
+    <TextView
+        android:id="@+id/tvHorarioMensagem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="09:40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCorpoMensagem" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

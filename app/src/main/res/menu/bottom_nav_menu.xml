@@ -7,8 +7,13 @@
         android:title="Mais populares" />
 
     <item
-        android:id="@+id/navigation_configuracoes"
-        android:icon="@drawable/ic_transgender"
-        android:title="opção 2" />
+        android:id="@+id/navigation_buscar_sala"
+        android:icon="@drawable/ic_lupa"
+        android:title="Buscar sala" />
+
+    <item
+        android:id="@+id/navigation_minhas_salas"
+        android:icon="@drawable/ic_salas"
+        android:title="Minhas salas" />
 
 </menu>

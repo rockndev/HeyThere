@@ -2,10 +2,8 @@ package com.lpfr3d.heythere.ui.registro
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
 import com.lpfr3d.heythere.Resource
 import com.lpfr3d.heythere.database.models.RegistroModel
-import com.lpfr3d.heythere.database.models.SalaModel
 import com.lpfr3d.heythere.database.retrofit.Api
 import kotlinx.coroutines.Dispatchers
 
@@ -19,14 +17,4 @@ class CadastroUsuarioViewModel(private val service: Api) : ViewModel() {
             emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
         }
     }
-
-    fun listarSalas() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = service.listarSalas()))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Falha"))
-        }
-    }
-
 }

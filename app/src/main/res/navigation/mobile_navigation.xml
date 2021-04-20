@@ -16,7 +16,17 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_sala"
-        android:name="com.lpfr3d.heythere.ui.salas.SalaFragment"
+        android:name="com.lpfr3d.heythere.ui.chat.SalaFragment"
         android:label="fragment_sala"
         tools:layout="@layout/fragment_sala" />
+    <fragment
+        android:id="@+id/navigation_buscar_sala"
+        android:name="com.lpfr3d.heythere.ui.buscar_salas.BuscarSalaFragment"
+        android:label="fragment_buscar_sala"
+        tools:layout="@layout/fragment_buscar_sala" />
+    <fragment
+        android:id="@+id/navigation_minhas_salas"
+        android:name="com.lpfr3d.heythere.ui.minhas_salas.MinhasSalasFragment"
+        android:label="fragment_minhas_salas"
+        tools:layout="@layout/fragment_minhas_salas" />
 </navigation>

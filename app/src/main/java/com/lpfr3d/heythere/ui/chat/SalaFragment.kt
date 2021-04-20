@@ -1,12 +1,13 @@
-package com.lpfr3d.heythere.ui.salas
+package com.lpfr3d.heythere.ui.chat
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.lpfr3d.heythere.MensagemModel
 import com.lpfr3d.heythere.R
 import com.lpfr3d.heythere.databinding.FragmentSalaBinding
 import org.phoenixframework.Channel
@@ -16,7 +17,6 @@ import org.phoenixframework.Socket
 class SalaFragment : Fragment(R.layout.fragment_sala) {
 
     lateinit var binding: FragmentSalaBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,16 +46,16 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
         }
 
         binding.btEnviarMensagem.setOnClickListener {
-            sendMessage(lobbyChannel!!)
+            enviarMensagemNoChat(lobbyChannel!!)
         }
 
-        observarSockets(socket, layoutManager, adapterMensagem)
-
+        observarSockets(socket)
         socket.connect()
+
         val chatroom = socket.channel("salas:${idSala}")
 
         chatroom.on("join") {
-            this.addText(layoutManager, "You joined the room", adapterMensagem)
+            println("Entrou na sala")
         }
 
         chatroom.on("mensagem_criada") { message ->
@@ -64,52 +64,46 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
             }
             val msg = message.payload["conteudo"].toString()
             val user = message.payload["usuario"].toString()
-            val horario_mensagem = message.payload["h_envio"].toString()
+            val horarioMensagem = message.payload["h_envio"].toString()
             val nacionalidade = message.payload["nacionalidade"].toString()
-            addText(layoutManager, "$user: $msg", adapterMensagem)
+            addText(
+                layoutManager,
+                MensagemModel(nacionalidade, user, msg, horarioMensagem),
+                adapterMensagem
+            )
         }
 
         lobbyChannel = chatroom
         chatroom
             .join()
             .receive("ok") {
-                this.addText(layoutManager, "Joined Channel", adapterMensagem)
+                println("Entrou no canal")
             }
             .receive("error") {
-                this.addText(
-                    layoutManager,
-                    "Failed to join channel: ${it.payload}",
-                    adapterMensagem
-                )
+                println("Erro ao tentar entrar no canal ${it.payload}")
             }
-
 
     }
 
     private fun observarSockets(
-        socket: Socket,
-        layoutManager: LinearLayoutManager,
-        adapter: MensagemAdapter
+        socket: Socket
     ) {
         socket.onOpen {
-            println("SOCKET ABERTO")
-            this.addText(layoutManager, "Socket Opened", adapter)
+            println("Socket aberto")
         }
 
         socket.onClose {
-            println("SOCKET FECHADO")
-            this.addText(layoutManager, "Socket Opened", adapter)
+            println("Socket fechado")
         }
 
         socket.onError { throwable, response ->
-            println("Socket Errored $response ${throwable.message}")
-            this.addText(layoutManager, "Socket Opened", adapter)
+            println("Socket erro ${throwable.message} $response")
         }
     }
 
     private fun addText(
         layoutManager: LinearLayoutManager,
-        text: String,
+        text: MensagemModel,
         adapter: MensagemAdapter
     ) {
         activity?.runOnUiThread {
@@ -122,7 +116,7 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
         }
     }
 
-    private fun sendMessage(lobbyChannel: Channel) {
+    private fun enviarMensagemNoChat(lobbyChannel: Channel) {
         val hashmap = HashMap<String, Any>()
         hashmap["conteudo"] = binding.etCorpoMensagem.text.toString()
 

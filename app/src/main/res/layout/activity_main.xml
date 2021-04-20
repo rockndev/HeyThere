@@ -18,14 +18,8 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_height="wrap_content"
         app:iconSize="20dp"
-        app:iconTint="@color/teal_700"
-        app:iconTintActive="@color/purple_200"
-        app:indicatorColor="@color/black"
-        app:indicatorRadius="10dp"
         app:menu="@menu/bottom_nav_menu"
         app:textColor="@color/red" />
 

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.flaviofaria.kenburnsview.KenBurnsView
 import com.lpfr3d.heythere.R
 import com.lpfr3d.heythere.database.models.SalaModel
-import com.lpfr3d.heythere.database.models.TopSalasModel
 import com.squareup.picasso.Picasso
 
 class TopSalasAdapter(var fragment: Fragment) : RecyclerView.Adapter<TopSalasAdapter.ViewHolder>() {

@@ -1,10 +1,10 @@
 package com.lpfr3d.heythere.ui.registro
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.viewbinding.library.activity.viewBinding
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -59,21 +59,6 @@ class CadastroUsuarioActivity : AppCompatActivity() {
                 }
             })
         }
-
-        binding.btListarSalas.setOnClickListener {
-            viewModel.listarSalas().observe(this,{
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCESSO -> resource.data!!.forEach {
-                            println(it.nomeSala + "  " + it.quantidadeDePessoas)
-                        }
-                        Status.ERRO -> println(resource.message)
-                        Status.CARREGANDO -> println("loading")
-                    }
-                }
-            })
-        }
-
     }
 
     override fun onResume() {

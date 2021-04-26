@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -49,8 +51,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    //DataStore
+    implementation "androidx.datastore:datastore:1.0.0-beta01"
+
     //GitHub view Binding Delegate
     implementation 'com.github.yogacp:android-viewbinding:1.0.2'
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     //Ken View
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
@@ -59,7 +67,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
-    implementation "androidx.fragment:fragment-ktx:1.3.2"
+    implementation "androidx.fragment:fragment-ktx:1.3.3"
 
     //Mask
     implementation 'ru.egslava:MaskedEditText:1.0.5'
@@ -82,7 +90,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
 
-    //Smooth Bottom Bar
-    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.7'
+    //Room
+    def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 
 }

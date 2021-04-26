@@ -1,20 +1,33 @@
 package com.lpfr3d.heythere.ui.chat
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.lpfr3d.heythere.MensagemModel
 import com.lpfr3d.heythere.R
+import com.lpfr3d.heythere.database.db_room.AppDataBase
+import com.lpfr3d.heythere.database.db_room.model.MensagemEntidade
+import com.lpfr3d.heythere.database.db_room.repository.mensagem.MensagemRepositorio
 import com.lpfr3d.heythere.databinding.FragmentSalaBinding
+import com.lpfr3d.heythere.json.RespostaPayloadEventoJoin
+import org.json.JSONObject
 import org.phoenixframework.Channel
 import org.phoenixframework.Socket
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 
 class SalaFragment : Fragment(R.layout.fragment_sala) {
+    private lateinit var viewModel: SalaViewModel
 
     lateinit var binding: FragmentSalaBinding
 
@@ -27,8 +40,14 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val dao = AppDataBase.getDatabse(requireContext()).mensagemDao()
+        val repositorio = MensagemRepositorio(dao)
+        val factory = SalaVMFactory(repositorio)
+        viewModel = ViewModelProvider(this, factory).get(SalaViewModel::class.java)
 
         val socket =
             Socket("ws://darksalmon-flawless-mosasaur.gigalixirapp.com/socket/websocket")
@@ -52,12 +71,10 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
         observarSockets(socket)
         socket.connect()
 
-        val chatroom = socket.channel("salas:${idSala}")
-
-        chatroom.on("join") {
-            println("Entrou na sala")
-        }
-
+        val hashmap = HashMap<String, Any>()
+        hashmap["h_logout"] = "2021-04-01T00:00:46"
+        val chatroom = socket.channel("salas:${idSala}", hashmap)
+        println(idSala)
         chatroom.on("mensagem_criada") { message ->
             for ((key, value) in message.payload) {
                 println("$key = $value")
@@ -66,6 +83,15 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
             val user = message.payload["usuario"].toString()
             val horarioMensagem = message.payload["h_envio"].toString()
             val nacionalidade = message.payload["nacionalidade"].toString()
+            viewModel.salvarMensagem(
+                MensagemEntidade(
+                    id = 0,
+                    conteudo = msg,
+                    remetente = user,
+                    sala = 2,
+                    horario = horaAtual()
+                )
+            )
             addText(
                 layoutManager,
                 MensagemModel(nacionalidade, user, msg, horarioMensagem),
@@ -74,10 +100,23 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
         }
 
         lobbyChannel = chatroom
+
+
         chatroom
             .join()
-            .receive("ok") {
-                println("Entrou no canal")
+            .receive("ok") { message ->
+
+                val json = JSONObject(message.payload).toString()
+                val gson = Gson()
+                var jsonFormatado = gson.fromJson(json, RespostaPayloadEventoJoin::class.java)
+                jsonFormatado.response.mensagens.forEach {
+                    addText(
+                        layoutManager,
+                        MensagemModel("BRA", it.usuario.nome, it.conteudo, it.hEnvio),
+                        adapterMensagem
+                    )
+                }
+
             }
             .receive("error") {
                 println("Erro ao tentar entrar no canal ${it.payload}")
@@ -125,6 +164,13 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
             .receive("erro ao enviar mensagem") { Log.d("TAG", "error $it") }
 
         binding.etCorpoMensagem.text.clear()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun horaAtual(): String {
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            .withZone(ZoneOffset.UTC)
+            .format(Instant.now())
     }
 
 }

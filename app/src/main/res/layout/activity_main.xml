@@ -20,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:iconSize="20dp"
-        app:menu="@menu/bottom_nav_menu"
-        app:textColor="@color/red" />
+        app:menu="@menu/bottom_nav_menu"/>
 
 </LinearLayout>

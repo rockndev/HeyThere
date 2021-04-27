@@ -9,4 +9,7 @@ import com.lpfr3d.heythere.database.db_room.model.MensagemEntidade
 interface MensagemDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun salvarMensagem(mensagem : MensagemEntidade) : Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun salvarListaDeMensagens(mensagem: MutableList<MensagemEntidade>)
 }

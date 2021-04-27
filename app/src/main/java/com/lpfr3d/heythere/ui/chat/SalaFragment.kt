@@ -92,7 +92,7 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
                     horario = horaAtual()
                 )
             )
-            addText(
+            adicionarMensagemNaTela(
                 layoutManager,
                 MensagemModel(nacionalidade, user, msg, horarioMensagem),
                 adapterMensagem
@@ -105,17 +105,30 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
         chatroom
             .join()
             .receive("ok") { message ->
-
+                var listaDeMensagens = mutableListOf<MensagemEntidade>()
                 val json = JSONObject(message.payload).toString()
                 val gson = Gson()
-                var jsonFormatado = gson.fromJson(json, RespostaPayloadEventoJoin::class.java)
+                val jsonFormatado = gson.fromJson(json, RespostaPayloadEventoJoin::class.java)
                 jsonFormatado.response.mensagens.forEach {
-                    addText(
+
+                    listaDeMensagens.add(
+                        MensagemEntidade(
+                            conteudo = it.conteudo,
+                            remetente = it.usuario.nome,
+                            horario = it.hEnvio,
+                            sala = idSala!!.toInt(),
+                            id = 0
+                        )
+                    )
+
+                    adicionarMensagemNaTela(
                         layoutManager,
                         MensagemModel("BRA", it.usuario.nome, it.conteudo, it.hEnvio),
                         adapterMensagem
                     )
                 }
+
+                viewModel.salvarListaDeMensagens(listaDeMensagens)
 
             }
             .receive("error") {
@@ -140,7 +153,7 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
         }
     }
 
-    private fun addText(
+    private fun adicionarMensagemNaTela(
         layoutManager: LinearLayoutManager,
         text: MensagemModel,
         adapter: MensagemAdapter

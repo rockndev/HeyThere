@@ -14,4 +14,10 @@ class SalaViewModel(private val mensagemRepositorio: MensagemRepositorio) : View
         }
     }
 
+    fun salvarListaDeMensagens(mensagens : MutableList<MensagemEntidade>){
+        viewModelScope.launch {
+            mensagemRepositorio.inserirListaDeMensagens(mensagens)
+        }
+    }
+
 }

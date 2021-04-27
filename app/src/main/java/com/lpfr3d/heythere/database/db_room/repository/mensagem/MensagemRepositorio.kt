@@ -5,8 +5,12 @@ import com.lpfr3d.heythere.database.db_room.model.MensagemEntidade
 
 class MensagemRepositorio(private val mensagemDAO: MensagemDAO) {
 
-    suspend fun insert(mensagem: MensagemEntidade):Long{
+    suspend fun insert(mensagem: MensagemEntidade): Long {
         return mensagemDAO.salvarMensagem(mensagem)
+    }
+
+    suspend fun inserirListaDeMensagens(mensagens: MutableList<MensagemEntidade>) {
+        return mensagemDAO.salvarListaDeMensagens(mensagens)
     }
 
 }

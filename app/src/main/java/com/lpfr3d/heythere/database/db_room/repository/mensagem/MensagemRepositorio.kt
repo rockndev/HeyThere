@@ -13,4 +13,9 @@ class MensagemRepositorio(private val mensagemDAO: MensagemDAO) {
         return mensagemDAO.salvarListaDeMensagens(mensagens)
     }
 
+    suspend fun carregarMensagens(idSala: Int): MutableList<MensagemEntidade> {
+        return mensagemDAO.carregarMensagens(idSala)
+    }
+
+
 }

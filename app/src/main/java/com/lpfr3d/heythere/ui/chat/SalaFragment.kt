@@ -30,6 +30,7 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
     private lateinit var viewModel: SalaViewModel
 
     lateinit var binding: FragmentSalaBinding
+    lateinit var listaDeMensagens: MutableList<MensagemEntidade>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +57,10 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
         var lobbyChannel: Channel? = null
 
         val idSala = arguments?.getString("idSala")
+        viewModel.coletarFotoDoDia(idSala!!.toInt())
+        viewModel.fotoDoDia.observe(viewLifecycleOwner, { mensagens ->
+            listaDeMensagens = mensagens
+        })
 
         layoutManager.stackFromEnd = true
 
@@ -105,7 +110,7 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
         chatroom
             .join()
             .receive("ok") { message ->
-                var listaDeMensagens = mutableListOf<MensagemEntidade>()
+                val listaDeMensagens = mutableListOf<MensagemEntidade>()
                 val json = JSONObject(message.payload).toString()
                 val gson = Gson()
                 val jsonFormatado = gson.fromJson(json, RespostaPayloadEventoJoin::class.java)
@@ -116,7 +121,7 @@ class SalaFragment : Fragment(R.layout.fragment_sala) {
                             conteudo = it.conteudo,
                             remetente = it.usuario.nome,
                             horario = it.hEnvio,
-                            sala = idSala!!.toInt(),
+                            sala = idSala.toInt(),
                             id = 0
                         )
                     )

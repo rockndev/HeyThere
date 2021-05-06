@@ -11,30 +11,22 @@ import kotlinx.coroutines.launch
 
 class SalaViewModel(private val mensagemRepositorio: MensagemRepositorio) : ViewModel() {
 
-    fun salvarMensagem(mensagem: MensagemEntidade) {
-        viewModelScope.launch {
-            mensagemRepositorio.insert(mensagem)
-        }
-    }
+    private val _listaDeMensagensArmazenadasNoBancoLocal = MutableLiveData<MutableList<MensagemEntidade>>()
+    val listaDeMensagensArmazenadasNoBancoLocal: LiveData<MutableList<MensagemEntidade>>
+        get() = _listaDeMensagensArmazenadasNoBancoLocal
 
-    fun salvarListaDeMensagens(mensagens: MutableList<MensagemEntidade>) {
-        viewModelScope.launch {
-            mensagemRepositorio.inserirListaDeMensagens(mensagens)
-        }
-    }
-
-    private val _fotoDoDia = MutableLiveData<MutableList<MensagemEntidade>>()
-    val fotoDoDia: LiveData<MutableList<MensagemEntidade>>
-        get() = _fotoDoDia
-
-    fun coletarFotoDoDia(idSala: Int) {
+    fun coletarListaDeMensagensArmazenadasNoBancoLocal(idSala: Int) {
         viewModelScope.launch {
             try {
-                _fotoDoDia.postValue(mensagemRepositorio.carregarMensagens(idSala))
+                _listaDeMensagensArmazenadasNoBancoLocal.postValue(mensagemRepositorio.carregarMensagens(idSala))
             } catch (e: Exception) {
                 Log.d("Erro de Serviço", e.message.toString())
             }
         }
+    }
+
+    fun observarNovasMensagens(idSala: Int){
+
     }
 
 }

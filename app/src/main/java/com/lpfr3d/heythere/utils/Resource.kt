@@ -1,4 +1,4 @@
-package com.lpfr3d.heythere
+package com.lpfr3d.heythere.utils
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 

@@ -17,7 +17,7 @@ import com.lpfr3d.heythere.R
 import com.lpfr3d.heythere.database.db_room.AppDataBase
 import com.lpfr3d.heythere.database.db_room.repository.mensagem.MensagemRepositorio
 import com.lpfr3d.heythere.databinding.ActivityMainBinding
-import com.lpfr3d.heythere.horaAtualEmUTC
+import com.lpfr3d.heythere.utils.horaAtualEmUTC
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding

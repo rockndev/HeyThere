@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.lpfr3d.heythere.MinhasSalas
 import com.lpfr3d.heythere.R
 import com.lpfr3d.heythere.databinding.FragmentMinhasSalasBinding
+import com.lpfr3d.heythere.utils.MinhasSalas
 
 class MinhasSalasFragment : Fragment(R.layout.fragment_minhas_salas) {
 

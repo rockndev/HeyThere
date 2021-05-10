@@ -1,4 +1,4 @@
-package com.lpfr3d.heythere.json
+package com.lpfr3d.heythere.utils
 
 
 import com.google.gson.annotations.SerializedName

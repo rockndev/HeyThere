@@ -25,8 +25,5 @@ class SalaViewModel(private val mensagemRepositorio: MensagemRepositorio) : View
         }
     }
 
-    fun observarNovasMensagens(idSala: Int){
-
-    }
 
 }

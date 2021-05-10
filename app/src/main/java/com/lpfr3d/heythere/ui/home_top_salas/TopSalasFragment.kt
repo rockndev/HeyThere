@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.lpfr3d.heythere.R
-import com.lpfr3d.heythere.Status
 import com.lpfr3d.heythere.database.models.SalaModel
 import com.lpfr3d.heythere.database.retrofit.RetrofitClient
 import com.lpfr3d.heythere.databinding.FragmentTopSalasBinding
+import com.lpfr3d.heythere.utils.Status
 import kotlin.math.abs
 
 
@@ -31,7 +31,7 @@ class TopSalasFragment : Fragment(R.layout.fragment_top_salas) {
     private val viewModel by viewModels<TopSalasViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return TopSalasViewModel(RetrofitClient.instance) as T
+                return TopSalasViewModel(RetrofitClient.getApiService(context!!)) as T
             }
         }
     }

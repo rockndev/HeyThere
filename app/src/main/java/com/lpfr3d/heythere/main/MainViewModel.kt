@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.lpfr3d.heythere.MensagemModel
-import com.lpfr3d.heythere.MinhasSalas
 import com.lpfr3d.heythere.database.db_room.model.MensagemEntidade
 import com.lpfr3d.heythere.database.db_room.repository.mensagem.MensagemRepositorio
-import com.lpfr3d.heythere.horaAtualEmUTC
-import com.lpfr3d.heythere.json.RespostaPayloadEventoJoin
 import com.lpfr3d.heythere.ui.chat.MensagemAdapter
+import com.lpfr3d.heythere.utils.MinhasSalas
+import com.lpfr3d.heythere.utils.RespostaPayloadEventoJoin
+import com.lpfr3d.heythere.utils.horaAtualEmUTC
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.phoenixframework.Channel

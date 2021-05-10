@@ -2,8 +2,8 @@ package com.lpfr3d.heythere.ui.home_top_salas
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.lpfr3d.heythere.Resource
 import com.lpfr3d.heythere.database.retrofit.Api
+import com.lpfr3d.heythere.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
 class TopSalasViewModel(private val service: Api) : ViewModel() {

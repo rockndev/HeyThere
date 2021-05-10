@@ -1,4 +1,4 @@
-package com.lpfr3d.heythere
+package com.lpfr3d.heythere.utils
 
 import android.os.Build
 import androidx.annotation.RequiresApi

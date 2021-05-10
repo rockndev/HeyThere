@@ -21,7 +21,7 @@ class BuscarSalaFragment : Fragment(R.layout.fragment_buscar_sala) {
     private val viewModel by viewModels<BuscarSalaViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return BuscarSalaViewModel(RetrofitClient.instance) as T
+                return BuscarSalaViewModel(RetrofitClient.getApiService(context!!)) as T
             }
         }
     }

@@ -9,10 +9,10 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lpfr3d.heythere.R
-import com.lpfr3d.heythere.Status
 import com.lpfr3d.heythere.database.models.RegistroModel
-import com.lpfr3d.heythere.database.retrofit.RetrofitClient.instance
+import com.lpfr3d.heythere.database.retrofit.RetrofitClient
 import com.lpfr3d.heythere.databinding.ActivityCadastroUsuarioBinding
+import com.lpfr3d.heythere.utils.Status
 
 class CadastroUsuarioActivity : AppCompatActivity() {
 
@@ -20,7 +20,7 @@ class CadastroUsuarioActivity : AppCompatActivity() {
     private val viewModel by viewModels<CadastroUsuarioViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return CadastroUsuarioViewModel(instance) as T
+                return CadastroUsuarioViewModel(RetrofitClient.getApiService(applicationContext)) as T
             }
         }
     }

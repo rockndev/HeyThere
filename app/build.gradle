@@ -73,6 +73,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
     implementation "androidx.fragment:fragment-ktx:1.3.3"
 
+    //Lottie
+    implementation 'com.airbnb.android:lottie:3.6.1'
+
     //Mask
     implementation 'ru.egslava:MaskedEditText:1.0.5'
 
@@ -89,10 +92,11 @@ dependencies {
     //Recycler
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
 
-    //Retrofit
+    //Retrofit e OkHTTP
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
 
     //Room
     def room_version = "2.3.0"

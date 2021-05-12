@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.lpfr3d.heythere.database.retrofit.RetrofitClient
 import com.lpfr3d.heythere.databinding.ActivityLoginBinding
 import com.lpfr3d.heythere.main.MainActivity
+import com.lpfr3d.heythere.ui.registro.CadastroUsuarioActivity
 import com.lpfr3d.heythere.utils.GerenciadorDeSessao
 import com.lpfr3d.heythere.utils.Status
+import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -30,10 +32,15 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.btRegistrarUsuario.setOnClickListener {
+            val intent = Intent(this, CadastroUsuarioActivity::class.java)
+            startActivity(intent)
+        }
+
 
         binding.btLogin.setOnClickListener {
             viewModel.login(
-                binding.etLoginUsuario.text.toString().trim(),
+                binding.etLoginUsuario.text.toString().trim().toLowerCase(Locale.ROOT),
                 binding.etLoginSenha.text.toString().trim()
             ).observe(this, {
                 it?.let { resource ->
@@ -55,6 +62,5 @@ class LoginActivity : AppCompatActivity() {
             })
         }
     }
-
 
 }
